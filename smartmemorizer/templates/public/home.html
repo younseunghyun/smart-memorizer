@@ -1,0 +1,28 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+
+  <h1>Welcome to SmartMemorizer</h1>
+
+  <p>This Site Help you to memorize words</p>
+  <p><a href="{{ url_for('public.about') }}" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div><!-- /.jumbotron -->
+
+<div class="body-content">
+  <div class="row">
+    <div class="col-lg-4">
+      <h2><i class="glyphicon glyphicon-book"></i> Make word book</h2>
+      <p>Make your personal word book. It help you to memorize word better than ever!</p>
+      <p><a class="btn btn-default" href="{{ url_for('upload.upload') }}">Upload word book &raquo;</a></p>
+    </div>
+    <div class="col-lg-4">
+      <h2><i class="fa fa-flask"></i>Memorize</h2>
+      <p>Start to memorize word. It show you word which is more complicated than other based on you</p>
+      <p><a href="{{ url_for('public.about') }}" class="btn btn-default">Go to memorize&raquo;</a></p>
+   </div>
+  </div><!-- /.row -->
+</div>
+{% endblock %}
+

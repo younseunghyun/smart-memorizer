@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block css %}
+<style>
+    #text-block .flicker_text{
+    color: black;
+    text-align: center;
+    font-size : 100px;
+    }
+</style>
+<link rel="stylesheet" href="/static/css/owl-carousel/owl.carousel.css">
+<link rel="stylesheet" href="/static/css/owl-carousel/owl.theme.css">
+
+<!-- Include js plugin -->
+
+{% endblock %}
+
+{% block content %}
+
+<div id="text-block">
+    <div id="owl-example" class="owl-carousel">
+        {% for word in words %}
+        <div class="flicker_text" data-group ="{{ word.group }}" data-word="{{ word.word }}" data-mean="{{ word.mean }}" data-state="word">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script src="/static/js/owl-carousel/owl.carousel.js"></script>
+<script>
+
+    $(document).ready(function() {
+    $("#owl-example").owlCarousel({
+           singleItem : true,
+           itemsScaleUp : true,
+           pagination : false,
+           navigation : true,
+           autoPlay : 5000
+
+    });
+     setInterval(function() {
+            $(".flicker_text").each(function(index){
+                $(this).fadeIn("slow", function(){
+                    if ( $(this).attr('data-state') == "word"){
+                        $(this).text($(this).attr("data-mean"));
+                        $(this).attr('data-state','mean');
+                    }
+                    else{
+                        $(this).text($(this).attr("data-word"));
+                        $(this).attr('data-state','word');
+                    }
+                $(".flickr").fadeOut("slow");
+            });
+            });
+     }, 1000);
+
+     $(".flicker_text").click(function(){
+     if($(this).attr('data-send') == 'send') return ''
+        $(this).css('background-color','rgba(255,0,0,0.4)');
+        $(this).attr('data-send','send');
+        var request = $.ajax({
+              url: "{{ url_for('memorizer.word') }}",
+              type: "POST",
+              data: { group : $(this).attr('data-group'),
+                       word : $(this).attr('data-word')
+                    },
+              dataType: "json"
+            });
+
+     });
+});
+
+
+
+</script>
+{% endblock %}
