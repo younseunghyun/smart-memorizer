@@ -10,7 +10,7 @@ css = Bundle(
 )
 
 js = Bundle(
-    'libs/jQuery/dist/jquery.js',
+    'libs/jquery/dist/jquery.js',
     'libs/bootstrap/dist/js/bootstrap.js',
     'libs/datatables.net/js/jquery.dataTables.min.js',
     'js/plugins.js',
