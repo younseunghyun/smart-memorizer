@@ -4,6 +4,8 @@
 
 {% block content %}
 
+
+
 <div class="body-content">
     <div class="row">
         <h1>Smart Memorizer</h1>
@@ -16,15 +18,20 @@
                 <th>Word count</th>
                 <th>Description</th>
                 <th>Last Open day</th>
+                <th>all</th>
+                <th>ratio</th>
             </tr>
             </thead>
             <tbody>
             {% for word_book in word_books %}
             <tr>
-                <th><a href="{{ url_for('memorizer.memorize', group=word_book.group) }}">{{ word_book.group }}</a></th>
+                <!-- TODO: connect this to the word book-->
+                <th>{{ word_book.group }}</a></th>
                 <td>{{ word_book.word_count }}</td>
                 <td><input placeholder="hi"></td>
                 <td></td>
+                <td><a href="{{ url_for('memorizer.memorize', group=word_book.group) }}">all</a></td>
+                <td><a href="{{ url_for('memorizer.ratio_memorize', group=word_book.group) }}">ratio</a></td>
             </tr>
             {% endfor %}
             </tbody>

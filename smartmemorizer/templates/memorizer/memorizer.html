@@ -24,6 +24,9 @@
         {% endfor %}
     </div>
 </div>
+<div id="home" style="text-align:center;">
+    <a href="{{ url_for('memorizer.main') }}">home</a>
+</div>
 
 
 {% endblock %}
@@ -33,13 +36,16 @@
 <script src="/static/js/owl-carousel/owl.carousel.js"></script>
 <script>
 
+    var autoPlayPeriod = 3000;
+    var flickerPeriod = 500;
+
     $(document).ready(function() {
     $("#owl-example").owlCarousel({
            singleItem : true,
            itemsScaleUp : true,
            pagination : false,
            navigation : true,
-           autoPlay : 5000
+           autoPlay : autoPlayPeriod
 
     });
      setInterval(function() {
@@ -56,7 +62,7 @@
                 $(".flickr").fadeOut("slow");
             });
             });
-     }, 1000);
+     }, flickerPeriod);
 
      $(".flicker_text").click(function(){
      if($(this).attr('data-send') == 'send') return ''

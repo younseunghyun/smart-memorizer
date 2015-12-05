@@ -8,7 +8,7 @@ from smartmemorizer.extensions import login_manager, db
 from smartmemorizer.user.models import User
 from smartmemorizer.word.models import Word
 from sqlalchemy import func
-
+from random import shuffle
 
 blueprint = Blueprint('memorizer', __name__, url_prefix='/memorizer', static_folder='../static')
 
@@ -25,14 +25,33 @@ def main():
     return render_template('memorizer/main.html', word_books=groups_list)
 
 
-@blueprint.route('/<group>')
+@blueprint.route('/all/<group>')
 @login_required
 def memorize(group):
     words = db.session.query(Word).\
         filter(Word.username == load_user(current_user.get_id()).username).\
         filter(Word.group == group).\
         all()
+    max_error_count = max([int(word.error_count) for word in words])
+
+    ratio_based_words = list()
     return render_template('memorizer/memorizer.html', words=words)
+
+
+@blueprint.route('/ratio/<group>')
+@login_required
+def ratio_memorize(group):
+    words = db.session.query(Word).\
+        filter(Word.username == load_user(current_user.get_id()).username).\
+        filter(Word.group == group).\
+        all()
+    max_error_count = max([int(word.error_count) for word in words])
+    ratio_based_words = list()
+    for word in words:
+        for i in range(0,int(float(word.error_count) / float(max_error_count) * 10)):
+            ratio_based_words.append(word)
+    shuffle(ratio_based_words)
+    return render_template('memorizer/memorizer.html', words=ratio_based_words)
 
 
 @login_required

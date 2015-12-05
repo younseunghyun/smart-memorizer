@@ -21,6 +21,7 @@ def load_user(user_id):
     """Load user by ID."""
     return User.get_by_id(int(user_id))
 
+
 # TODO : login requried
 @blueprint.route('/word', methods=['GET', 'POST'])
 def upload2Db():
