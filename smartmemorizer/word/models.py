@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from smartmemorizer.database import Column, Model, SurrogatePK, db, reference_col, relationship
 from smartmemorizer.extensions import bcrypt
 
+from sqlalchemy import func
 
 class Word(SurrogatePK, Model):
     """A word of the app."""
@@ -23,6 +24,13 @@ class Word(SurrogatePK, Model):
 
     def __init__(self, username, group, word, mean, **kwargs):
         """Create instance."""
+        if db.session.query(func.count('*')).\
+                select_from(Word_book).\
+                filter(Word_book.group == group,
+                       Word_book.username == username).\
+                distinct().scalar() == 0:
+            db.Model.__init__(Word_book, username=username, group=group, **kwargs)
+
         db.Model.__init__(self, username=username, group=group, word=word, mean=mean, **kwargs)
 
     def increase_error_count(self):
@@ -39,3 +47,25 @@ class Word(SurrogatePK, Model):
     def __repr__(self):
         """Represent instance as a unique string."""
         return '<User({username!r})>'.format(username=self.username)
+
+
+class Word_book(SurrogatePK, Model):
+    """A word book of the app"""
+
+    __tablename__ = 'word_books'
+
+    username = Column(db.String(80), db.ForeignKey('users.username'), unique=False)
+    group = Column(db.String(80), unique=False, nullable=False)
+    description = Column(db.String(200), unique=False, nullable=True)
+
+    def __init__(self, username, group, description, **kwargs):
+        db.Model.__init__(self, username=username, group=group, description=description, **kwargs)
+
+    def __repr__(self):
+        """Represent instance as a unique string."""
+        return '<Word_book({username!r, group!r})>'.format(username=self.username, group=self.group)
+
+    def modify_description(self, description):
+        self.description = description
+        self.save()
+

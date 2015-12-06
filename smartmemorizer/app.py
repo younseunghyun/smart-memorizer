@@ -2,7 +2,7 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 
-from smartmemorizer import public, user, upload, memorizer
+from smartmemorizer import public, user, upload, memorizer, word
 from smartmemorizer.assets import assets
 from smartmemorizer.extensions import bcrypt, cache, db, debug_toolbar, login_manager, migrate
 from smartmemorizer.settings import ProdConfig
@@ -39,6 +39,7 @@ def register_blueprints(app):
     app.register_blueprint(user.views.blueprint)
     app.register_blueprint(upload.views.blueprint)
     app.register_blueprint(memorizer.views.blueprint)
+    app.register_blueprint(word.views.blueprint)
     return None
 
 

@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<style>
+input[read-only=true] {
+    background-color: white;
+};
+
+input {
+    background-color: yellow;
+};
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="body-content">
+    <div class="row">
+        {% if current_user and current_user.is_authenticated %}
+        <h1>Word book</h1>
+        <div class="col-md-offset-11">
+            <button class="btn btn-primary edit" state="read">Edit</button>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Word</th>
+                <th>Mean</th>
+                <th>ErrorCount</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for word in words %}
+            <tr>
+                <td id="word">{{ word.word }}</td>
+                <td><input type="text" id="mean" value="{{ word.mean }}" readonly></td>
+                <td><input type="text" id="error_count" value="{{ word.error_count }}" readonly></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        {% else %}
+        <h2>This need <a href="{{ url_for('public.login') }}">login</a> or <a href="{{ url_for('public.register') }}">resgister</a>
+        </h2>
+        {% endif %}
+    </div>
+    <!-- /.row -->
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+$(document).ready(function() {
+
+    $(".edit").on('click',function(){
+        if($(this).attr('state') == 'read'){
+            $('input').on('change', function(){
+                $(this).parent().parent().attr('class','warning');
+            });
+            $("input").each(function(){
+                $(this).attr('readonly',false);
+            });
+            $(this).attr('state','edit');
+            $(this).text('save');
+        }else{
+            var modify_word = new Array();
+            $('tr.warning').each(function(){
+                var word = $(this).children('td#word').text();
+                var mean = $(this).children('td').children('input#mean').val();
+                var error_count = $(this).children('td').children('input#error_count').val();
+                modify_word.push({"group" : window.location.href.split('/')[4], "word": word, "mean" : mean, "error_count" : error_count});
+                console.log({"group" : window.location.href.split('/')[4], "word": word, "mean" : mean, "error_count" : error_count});
+                $(this).removeAttr('class');
+            });
+            $(this).text('edit');
+            $(this).attr('state','read');
+             var request = $.ajax({
+              url: "{{ url_for('word.word') }}",
+              type: "PUT",
+              data: { words : JSON.stringify(modify_word)},
+              dataType: "json"
+            });
+        }
+    });
+});
+
+
+</script>
+
+{% endblock %}

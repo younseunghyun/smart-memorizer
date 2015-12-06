@@ -19,6 +19,7 @@
                 <li><a href="{{ url_for('public.about') }}">About</a></li>
                 <li><a href="{{ url_for('memorizer.main') }}">Memorize</a></li>
                 <li><a href="{{ url_for('upload.upload') }}">Upload</a></li>
+                <li><a href="{{ url_for('word.main') }}">WordBook</a></li>
                 <li><a href="{{ url_for('public.register') }}">Resister</a></li>
                 {% if current_user and current_user.is_authenticated %}
                 <li class="navbar-right"><a href="{{ url_for('user.members') }}">Me : {{ current_user.username }}</a></li>
