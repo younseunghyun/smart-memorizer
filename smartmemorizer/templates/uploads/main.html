@@ -30,7 +30,13 @@
                 </table>
             </div>
             <div id="file" class="tab-pane fade">
-                <h1>file</h1>
+                <h1>Upload Word by File</h1>
+                <h2>csv, tsv format is allowed</h2>
+                <form id="file" class="form-inline" method="POST" enctype="multipart/form-data" name="file">
+                    <div class="form-group">
+                        <input type="file" name="file" class="form-control"><button id="upload" type="submit" class="btn btn-default">upload</button>
+                    </div>
+                </form>
             </div>
         </div>
         {% elif form %}
@@ -74,6 +80,36 @@ $(document).ready(function() {
                         }
         );
    });
+
+   $("form#file").submit(function(){
+
+    var formData = new FormData($(this)[0]);
+
+    $.ajax({
+        url: window.location.pathname + 'word',
+        type: 'POST',
+        data: formData,
+        async: false,
+        success: function (data) {
+            if (data =='Success'){
+                $('button#upload').attr('class','btn btn-success');
+                $('button#upload').text('Success');
+            }else{
+                $('button#upload').attr('class','btn btn-danger');
+                $('button#upload').text('Fail');
+            }
+        },
+        error :function (data){
+            $('button#upload').attr('class','btn btn-danger');
+                $('button#upload').text('Fail');
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+
+    return false;
+});
 
 });
 

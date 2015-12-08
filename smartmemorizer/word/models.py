@@ -22,16 +22,16 @@ class Word(SurrogatePK, Model):
     call_count = Column(db.Integer, nullable=True)
     error_count = Column(db.Integer, nullable=True)
 
-    def __init__(self, username, group, word, mean, **kwargs):
+    def __init__(self, username, group, word, mean):
         """Create instance."""
         if db.session.query(func.count('*')).\
                 select_from(Word_book).\
                 filter(Word_book.group == group,
                        Word_book.username == username).\
                 distinct().scalar() == 0:
-            db.Model.__init__(Word_book, username=username, group=group, **kwargs)
+            Word_book.create(username=username, group=group, description='')
 
-        db.Model.__init__(self, username=username, group=group, word=word, mean=mean, **kwargs)
+        db.Model.__init__(self, username=username, group=group, word=word, mean=mean)
 
     def increase_error_count(self):
         if self.error_count is None:
