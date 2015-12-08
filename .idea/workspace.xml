@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="558346b1-c2b1-4e75-bd21-eb6e1cdcbd4b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev.db" afterPath="$PROJECT_DIR$/dev.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartmemorizer/templates/public/about.html" afterPath="$PROJECT_DIR$/smartmemorizer/templates/public/about.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartmemorizer/templates/uploads/main.html" afterPath="$PROJECT_DIR$/smartmemorizer/templates/uploads/main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartmemorizer/word/models.py" afterPath="$PROJECT_DIR$/smartmemorizer/word/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartmemorizer/upload/views.py" afterPath="$PROJECT_DIR$/smartmemorizer/upload/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="smart-memorizer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,12 +65,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartmemorizer/templates/public/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41022593">
-              <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+            <state vertical-scroll-proportion="-17.5">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartmemorizer/word/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/smartmemorizer/word/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.58381504">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+              <folding>
+                <element signature="e#43#64#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,10 +133,10 @@
         <option value="$PROJECT_DIR$/smartmemorizer/memorizer/views.py" />
         <option value="$PROJECT_DIR$/smartmemorizer/templates/word/wordbook.html" />
         <option value="$PROJECT_DIR$/smartmemorizer/word/views.py" />
-        <option value="$PROJECT_DIR$/smartmemorizer/word/models.py" />
         <option value="$PROJECT_DIR$/smartmemorizer/upload/views.py" />
         <option value="$PROJECT_DIR$/smartmemorizer/templates/uploads/main.html" />
         <option value="$PROJECT_DIR$/smartmemorizer/templates/public/about.html" />
+        <option value="$PROJECT_DIR$/smartmemorizer/word/models.py" />
       </list>
     </option>
   </component>
@@ -636,14 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smartmemorizer/word/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.01734104">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/smartmemorizer/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -681,16 +690,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartmemorizer/word/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80924857">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#64#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -786,9 +785,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/smartmemorizer/templates/public/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41022593">
-          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+        <state vertical-scroll-proportion="-17.5">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartmemorizer/word/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartmemorizer/word/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58381504">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding>
+            <element signature="e#43#64#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -31,7 +31,7 @@ class Word(SurrogatePK, Model):
                 distinct().scalar() == 0:
             Word_book.create(username=username, group=group, description='')
 
-        db.Model.__init__(self, username=username, group=group, word=word, mean=mean)
+        db.Model.__init__(self, username=username, group=group, word=word, mean=mean, error_count=0)
 
     def increase_error_count(self):
         if self.error_count is None:
