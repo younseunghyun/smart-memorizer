@@ -12,4 +12,4 @@ env.key_filename = '/Users/jackyun/.ssh/tokyo_jack.pem'
 def deploy():
     code_dir = '/home/ec2-user/smart-memorizer'
     with cd(code_dir):
-        run("git pull")
+        run("git pull --force")
