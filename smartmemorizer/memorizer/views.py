@@ -1,8 +1,5 @@
-import json
-from smartmemorizer.word.models import Word
-
 __author__ = 'jackyun'
-from flask import Blueprint, render_template, session, request
+from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from smartmemorizer.extensions import login_manager, db
 from smartmemorizer.user.models import User
@@ -32,9 +29,6 @@ def memorize(group):
         filter(Word.username == load_user(current_user.get_id()).username).\
         filter(Word.group == group).\
         all()
-    max_error_count = max([int(word.error_count) for word in words])
-
-    ratio_based_words = list()
     return render_template('memorizer/memorizer.html', words=words)
 
 
@@ -60,8 +54,8 @@ def word():
     if request.method == 'POST':
         username = load_user(current_user.get_id()).username
         group = request.form['group']
-        word = request.form['word']
-        items = db.session.query(Word).filter(Word.username == username, Word.group == group, Word.word == word).all()
+        index = request.form['index']
+        items = db.session.query(Word).filter(Word.username == username, Word.group == group, Word.index == index).all()
         for item in items:
             item.increase_error_count()
     return "Success"

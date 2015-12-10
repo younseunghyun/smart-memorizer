@@ -18,6 +18,7 @@
                 <input class="word" id="key" placeholder="key" value=""> <input class="word" id="value"
                                                                                 placeholder="value" value="">
                 <button id="addRow">Add new word</button>
+                <button id="addMean">Find mean</button>
                 <button id="submit">submit</button>
                 <table id="example" class="display" cellspacing="0" width="100%">
                     <thead>
@@ -61,6 +62,25 @@ $(document).ready(function() {
     counter++;
     });
 
+    $('#addMean').on( 'click', function () {
+        var word = $('input.word#key').val();
+
+        $.ajax({
+            url: window.location.pathname + 'mean/' + word ,
+            type: 'GET',
+            async: false,
+            success: function (data) {
+                $('input.word#value').val(data);
+            },
+            error :function (data){
+                $('input.word#value').val(error);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+
 
     $('#submit').on( 'click', function() {
         var words = [];
@@ -85,31 +105,33 @@ $(document).ready(function() {
 
     var formData = new FormData($(this)[0]);
 
-    $.ajax({
-        url: window.location.pathname + 'word',
-        type: 'POST',
-        data: formData,
-        async: false,
-        success: function (data) {
-            if (data =='Success'){
-                $('button#upload').attr('class','btn btn-success');
-                $('button#upload').text('Success');
-            }else{
+        $.ajax({
+            url: window.location.pathname + 'word',
+            type: 'POST',
+            data: formData,
+            async: false,
+            success: function (data) {
+                if (data =='Success'){
+                    $('button#upload').attr('class','btn btn-success');
+                    $('button#upload').text('Success');
+                }else{
+                    $('button#upload').attr('class','btn btn-danger');
+                    $('button#upload').text('Fail');
+                }
+            },
+            error :function (data){
                 $('button#upload').attr('class','btn btn-danger');
-                $('button#upload').text('Fail');
-            }
-        },
-        error :function (data){
-            $('button#upload').attr('class','btn btn-danger');
-                $('button#upload').text('Fail');
-        },
-        cache: false,
-        contentType: false,
-        processData: false
+                    $('button#upload').text('Fail');
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+        return false;
     });
 
-    return false;
-});
+
 
 });
 

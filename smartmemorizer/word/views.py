@@ -46,8 +46,10 @@ def word():
         words = json.loads(request.form['words'])
         for word in words:
             target_word = db.session.query(Word).filter(Word.username == load_user(current_user.get_id()).username,
-                                          Word.group == word['group'],
-                                          Word.word == word['word']).first()
+                                                        Word.group == word['group'],
+                                                        Word.word == word['word'],
+                                                        Word.index == word['index']
+                                                        ).first()
             target_word.mean = word['mean']
             target_word.error_count = word['error_count']
             print target_word.mean

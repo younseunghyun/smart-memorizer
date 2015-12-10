@@ -19,7 +19,7 @@
 <div id="text-block">
     <div id="owl-example" class="owl-carousel">
         {% for word in words %}
-        <div class="flicker_text" data-group ="{{ word.group }}" data-word="{{ word.word }}" data-mean="{{ word.mean }}" data-state="word">
+        <div class="flicker_text" data-index ="{{ word.index }}"data-group ="{{ word.group }}" data-word="{{ word.word }}" data-mean="{{ word.mean }}" data-state="word">
         </div>
         {% endfor %}
     </div>
@@ -72,7 +72,7 @@
               url: "{{ url_for('memorizer.word') }}",
               type: "POST",
               data: { group : $(this).attr('data-group'),
-                       word : $(this).attr('data-word')
+                       index : $(this).attr('data-index')
                     },
               dataType: "json"
             });

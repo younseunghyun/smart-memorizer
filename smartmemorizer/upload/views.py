@@ -4,9 +4,10 @@ from smartmemorizer.word.models import Word
 __author__ = 'jackyun'
 from flask import Blueprint, render_template, session, request
 from flask_login import login_required
-from flask.ext import excel
 from smartmemorizer.extensions import login_manager
 from smartmemorizer.user.models import User
+import requests as r
+from bs4 import BeautifulSoup as bs
 
 blueprint = Blueprint('upload', __name__, url_prefix='/uploads', static_folder='../static')
 
@@ -25,7 +26,6 @@ def load_user(user_id):
 
 ALLOWED_EXTENSIONS = set(['csv','txt'])
 
-import StringIO
 
 @login_required
 @blueprint.route('/word', methods=['GET', 'POST'])
@@ -34,7 +34,7 @@ def upload2Db():
     if request.method == 'POST':
         if request.files.has_key('file'):
             file = request.files['file']
-            if file and isAllowedExtentin(file.filename):
+            if file and isAllowedExtention(file.filename):
                 try:
                     words = convertFile2WordList(file)
                 except ValueError:
@@ -48,8 +48,9 @@ def upload2Db():
     return 'Success'
 
 
-def isAllowedExtentin(filename):
+def isAllowedExtention(filename):
     return filename.split('.')[-1] in ALLOWED_EXTENSIONS
+
 
 def convertFile2WordList(file):
     file_type = file.content_type.split('/')[-1]
@@ -70,3 +71,21 @@ def convertFile2WordList(file):
             raise ValueError
     return words
 
+
+@login_required
+@blueprint.route('/mean/<word>')
+def getMean(word):
+    try:
+        daum_dict_bs = bs(r.get('http://dic.daum.net/search.do?q={}'.format(word)).text, 'html.parser')
+        means =[mean.text for mean in  daum_dict_bs.select('.clean_word')[0].select('.list_mean') ]
+        means = clean_word(means[0])
+        return means
+    except:
+        return 'unknown'
+
+
+def clean_word(target_word):
+    clean_word_list=['\n']
+    for word in clean_word_list:
+        target_word = target_word.replace(word,' ')
+    return target_word

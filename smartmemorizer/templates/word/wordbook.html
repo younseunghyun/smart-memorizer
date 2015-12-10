@@ -35,7 +35,7 @@ input {
             </thead>
             <tbody>
             {% for word in words %}
-            <tr>
+            <tr data-index="{{ word.index }}">
                 <td id="word">{{ word.word }}</td>
                 <td><input type="text" id="mean" value="{{ word.mean }}" readonly></td>
                 <td><input type="text" id="error_count" value="{{ word.error_count }}" readonly></td>
@@ -71,10 +71,11 @@ $(document).ready(function() {
         }else{
             var modify_word = new Array();
             $('tr.warning').each(function(){
+                var index = $(this).attr('data-index');
                 var word = $(this).children('td#word').text();
                 var mean = $(this).children('td').children('input#mean').val();
                 var error_count = $(this).children('td').children('input#error_count').val();
-                modify_word.push({"group" : window.location.href.split('/')[4], "word": word, "mean" : mean, "error_count" : error_count});
+                modify_word.push({"group" : window.location.href.split('/')[4], "index" : index, "word": word, "mean" : mean, "error_count" : error_count});
                 console.log({"group" : window.location.href.split('/')[4], "word": word, "mean" : mean, "error_count" : error_count});
                 $(this).removeAttr('class');
             });

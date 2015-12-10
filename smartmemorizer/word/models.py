@@ -2,24 +2,23 @@
 """word models."""
 import datetime as dt
 
-from flask_login import UserMixin
 
-from smartmemorizer.database import Column, Model, SurrogatePK, db, reference_col, relationship
-from smartmemorizer.extensions import bcrypt
 
+from smartmemorizer.database import Column, Model, SurrogatePK, db
 from sqlalchemy import func
 
 class Word(SurrogatePK, Model):
     """A word of the app."""
 
     __tablename__ = 'words'
+    __table_args__ = {'sqlite_autoincrement': True}
 
+    index = Column(db.Integer, autoincrement=True)
     username = Column(db.String(80), db.ForeignKey('users.username'), unique=False)
     group = Column(db.String(80), unique=False, nullable=False)
     word = Column(db.String(80), unique=False, nullable=False)
     mean = Column(db.String(80), unique=False, nullable=False)
     created_at = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
-    call_count = Column(db.Integer, nullable=True)
     error_count = Column(db.Integer, nullable=True)
 
     def __init__(self, username, group, word, mean):
@@ -30,8 +29,8 @@ class Word(SurrogatePK, Model):
                        Word_book.username == username).\
                 distinct().scalar() == 0:
             Word_book.create(username=username, group=group, description='')
-
-        db.Model.__init__(self, username=username, group=group, word=word, mean=mean, error_count=0)
+        index = db.session.query(Word).count() + 1
+        db.Model.__init__(self,index=index, username=username, group=group, word=word, mean=mean, error_count=0)
 
     def increase_error_count(self):
         if self.error_count is None:
