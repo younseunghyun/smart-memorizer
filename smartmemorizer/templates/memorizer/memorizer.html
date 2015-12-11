@@ -91,7 +91,7 @@
             $(this).attr('id','off');
             }
          else{
-            filckerInterval = ssetInterval(function() {
+            filckerInterval = setInterval(function() {
                                     $(".flicker_text").each(function(index){
                                         $(this).fadeIn("slow", function(){
                                             if ( $(this).attr('data-state') == "word"){
