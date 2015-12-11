@@ -4,7 +4,7 @@
     #text-block .flicker_text{
     color: black;
     text-align: center;
-    font-size : 100px;
+    font-size : 15vh;
     }
 </style>
 <link rel="stylesheet" href="/static/css/owl-carousel/owl.carousel.css">
@@ -19,13 +19,18 @@
 <div id="text-block">
     <div id="owl-example" class="owl-carousel">
         {% for word in words %}
-        <div class="flicker_text" data-index ="{{ word.index }}"data-group ="{{ word.group }}" data-word="{{ word.word }}" data-mean="{{ word.mean }}" data-state="word">
+        <div class="flicker_text" data-index="{{ word.index }}" data-group="{{ word.group }}"
+             data-word="{{ word.word }}" data-mean="{{ word.mean }}" data-state="word">
         </div>
         {% endfor %}
     </div>
 </div>
 <div id="home" style="text-align:center;">
-    <a href="{{ url_for('memorizer.main') }}">home</a>
+    <div>
+        <a href="{{ url_for('memorizer.main') }}">home</a>
+    </div>
+    <button class="btn btn-default flicker" id="on">Flicker Off</button>
+    <button class="btn btn-default auto-pagination" id="on">Auto Pagination Off</button>
 </div>
 
 
@@ -36,19 +41,19 @@
 <script src="/static/js/owl-carousel/owl.carousel.js"></script>
 <script>
 
-    var autoPlayPeriod = 3000;
-    var flickerPeriod = 500;
-
+    var autoPlayPeriod = 5000;
+    var flickerPeriod = 1000;
+    var filckerInterval;
     $(document).ready(function() {
     $("#owl-example").owlCarousel({
            singleItem : true,
-           itemsScaleUp : true,
+           <!--autoHeight : true,-->
            pagination : false,
            navigation : true,
            autoPlay : autoPlayPeriod
 
     });
-     setInterval(function() {
+    filckerInterval =  setInterval(function() {
             $(".flicker_text").each(function(index){
                 $(this).fadeIn("slow", function(){
                     if ( $(this).attr('data-state') == "word"){
@@ -78,7 +83,52 @@
             });
 
      });
+
+      $('.flicker').on( 'click', function () {
+        if($(this).attr('id') == 'on'){
+            clearInterval(filckerInterval);
+            $(this).text('Filcker On');
+            $(this).attr('id','off');
+            }
+         else{
+            filckerInterval = ssetInterval(function() {
+                                    $(".flicker_text").each(function(index){
+                                        $(this).fadeIn("slow", function(){
+                                            if ( $(this).attr('data-state') == "word"){
+                                                $(this).text($(this).attr("data-mean"));
+                                                $(this).attr('data-state','mean');
+                                            }
+                                            else{
+                                                $(this).text($(this).attr("data-word"));
+                                                $(this).attr('data-state','word');
+                                            }
+                                        $(".flickr").fadeOut("slow");
+                                    });
+                                    });
+                             }, flickerPeriod);
+                                    $(this).text('Filcker Off');
+                                    $(this).attr('id','on');
+                                    }
+        });
+
+        $('.auto-pagination').on('click', function () {
+        var owl = $(".owl-carousel").data('owlCarousel');
+            if( $(this).attr('id') == 'on'){
+                owl.stop();
+                 $(this).attr('id','off');
+                 $(this).text("Auto Pagination On");
+            }
+            else{
+                owl.play();
+                $(this).attr('id','on');
+                $(this).text("Auto Pagination Off");
+            }
+        });
+
+
 });
+
+
 
 
 
