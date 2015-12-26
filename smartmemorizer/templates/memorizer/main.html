@@ -16,8 +16,6 @@
             <tr>
                 <th>Word Book</th>
                 <th>Word count</th>
-                <th>Description</th>
-                <th>Last Open day</th>
                 <th>all</th>
                 <th>ratio</th>
             </tr>
@@ -28,8 +26,6 @@
                 <!-- TODO: connect this to the word book-->
                 <th>{{ word_book.group }}</a></th>
                 <td>{{ word_book.word_count }}</td>
-                <td><input placeholder="hi"></td>
-                <td></td>
                 <td><a href="{{ url_for('memorizer.memorize', group=word_book.group) }}">all</a></td>
                 <td><a href="{{ url_for('memorizer.ratio_memorize', group=word_book.group) }}">ratio</a></td>
             </tr>
