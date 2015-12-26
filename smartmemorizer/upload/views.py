@@ -53,7 +53,7 @@ def isAllowedExtention(filename):
 
 
 def convertFile2WordList(file):
-    file_type = file.content_type.split('/')[-1]
+    file_type = file.filename.split('.')[-1]
     separator_map = {
         'csv' : ',',
         'tsv' : '\t',
