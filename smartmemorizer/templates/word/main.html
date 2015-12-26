@@ -16,8 +16,6 @@
             <tr>
                 <th>Word Book</th>
                 <th>Word count</th>
-                <th>Description</th>
-                <th>Last Open day</th>
             </tr>
             </thead>
             <tbody>
@@ -26,8 +24,6 @@
                 <!-- TODO: connect this to the word book-->
                 <th><a href="{{ url_for('word.wordbook',group=word_book.group) }}">{{ word_book.group }}</a></th>
                 <td>{{ word_book.word_count }}</td>
-                <td><input placeholder="hi"></td>
-                <td></td>
             </tr>
             {% endfor %}
             </tbody>
